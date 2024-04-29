@@ -8,15 +8,6 @@
 #include "Manager/Manager.h"
 #include "Balls.generated.h"
 
-UENUM(BlueprintType)
-enum class EBallState: uint8
-{
-	EBS_Initial UMETA(DisplayName =  "Initial State"),
-	EBS_Explode UMETA(DisplayName = "Explode"),
-
-	EBS_Max UMETA(DisplayName = " DefaultMax")
-};
-
 UCLASS()
 class BOUNCE_API ABalls : public AActor
 {
@@ -28,6 +19,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category="Score")
 	TArray<int> PointsTable;
+
+	UPROPERTY(EditAnywhere, Category="Point")
+	int BallPoint = 0;
+
+	UPROPERTY(EditAnywhere, Category="JumpPoint")
+	float jumpPoint = 180.0f;
 
 	UPROPERTY(EditAnywhere, Category="SpawnPoint")
 	int spawnPoint;
@@ -53,14 +50,14 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "ball Properties")
 	UStaticMeshComponent* ballMesh;
 
-	UPROPERTY(VisibleAnywhere)
-	EBallState BallState;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void InformActor(AActor* OverlappingActor);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void StartBouncing();
 
 	UFUNCTION(BlueprintCallable,Category="GetterFunction")
 	int GetSpawnPoint(){return spawnPoint;}
@@ -71,5 +68,20 @@ public:
 	void SetspawnPoint(int point){spawnPoint = point;}
 	UFUNCTION(BlueprintCallable,Category="SetterFunction")
 	void SetActorName(FString name){ ActorName = name;}
+
+	UFUNCTION(BlueprintCallable, Category="SizeChange")
+	UStaticMeshComponent* GetBallMesh(){return ballMesh;}
+
+	UFUNCTION(BlueprintCallable, Category="BallPoint")
+	int GetBallPoint(){ return BallPoint;}
+	UFUNCTION(BlueprintCallable, Category="BallPoint")
+	void SetBallPoint(int point){BallPoint = point;}
+
+	UFUNCTION(BlueprintCallable, Category="JumpPoint")
+	float GetJumpPoint(){return jumpPoint;}
+	UFUNCTION(BlueprintCallable, Category="JumpPoint")
+	void SetJumpPoint(float jump){ jumpPoint = jump;}
+
+
 
 };

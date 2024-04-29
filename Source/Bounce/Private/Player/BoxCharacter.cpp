@@ -46,6 +46,11 @@ void ABoxCharacter::DamageInterface(AActor* DamagedActor, int Points)
 	
 }
 
+void ABoxCharacter::AddPoints(int points)
+{
+	PlayerScore = PlayerScore + points;
+}
+
 void ABoxCharacter::MoveRight(float InputValue)
 {
 	FVector RightDirection = GetActorRightVector();

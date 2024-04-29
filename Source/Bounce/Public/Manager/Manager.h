@@ -6,6 +6,15 @@
 #include "GameFramework/Actor.h"
 #include "Manager.generated.h"
 
+UENUM(BlueprintType)
+enum class EBallState: uint8
+{
+	EBS_Initial UMETA(DisplayName =  "Initial State"),
+	EBS_Explode UMETA(DisplayName = "Balck Ball Explode"),
+
+	EBS_Max UMETA(DisplayName = " DefaultMax")
+};
+
 UCLASS()
 class BOUNCE_API AManager : public AActor
 {

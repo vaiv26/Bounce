@@ -37,4 +37,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SendInfoToManager(AActor* DamagedActor);
 
+	UFUNCTION(BlueprintCallable)
+	int Getpoints(){return PlayerScore;}
+
+	UFUNCTION(BlueprintCallable)
+	void AddPoints(int points);
+
 };

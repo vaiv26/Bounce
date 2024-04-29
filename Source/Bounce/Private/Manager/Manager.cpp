@@ -28,6 +28,7 @@ AActor* AManager::SpawningBalls(FVector location,UClass* BallToSpawn)
 	FActorSpawnParameters ActorSpawnParameters;
 	ActorSpawnParameters.Owner = this;
 	AActor* SpawnedActor = World->SpawnActor<AActor>(BallToSpawn, location, SpawnRotation, ActorSpawnParameters);
+	
 	return SpawnedActor;
 }
 

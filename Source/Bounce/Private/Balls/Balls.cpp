@@ -25,24 +25,23 @@ void ABalls::BeginPlay()
 {
 	Super::BeginPlay();
 	ballMesh->OnComponentBeginOverlap.AddDynamic(this, &ABalls::OnSphereOverlap);
+	if(PointsTable[FMath::RandRange(0,PointsTable.Num() - 1)])
+	{
+		SetBallPoint(PointsTable[FMath::RandRange(0,PointsTable.Num() - 1)]);
+	}
 }
 
 void ABalls::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepHitResult)
 {
 	// Delete the Object, Call the Game Manager to Set points and maintain the ratio
-	int score = 0;
-	if(PointsTable[FMath::RandRange(0,PointsTable.Num() - 1)])
-	{
-		score = PointsTable[FMath::RandRange(0,PointsTable.Num() - 1)];
-	}
 	ICollisionInterface* Interface = Cast<ICollisionInterface>(OtherActor);
 	if(Interface)
 	{
 		AActor* OverlappedActor = OverlappedComponent->GetOwner();
 		if(OverlappedActor)
 		{
-			Interface->DamageInterface(OverlappedActor, score);
+			Interface->DamageInterface(OverlappedActor, BallPoint);
 			
 			OverlappedActor->SetLifeSpan(0.5f);
 			//Play Animation
